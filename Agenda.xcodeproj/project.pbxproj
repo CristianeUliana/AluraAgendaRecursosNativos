@@ -19,6 +19,8 @@
 		3E07D368260A2CFC001A9B6C /* Mensagem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07D367260A2CFC001A9B6C /* Mensagem.swift */; };
 		3E07D36A260A494F001A9B6C /* Localizacao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07D369260A494F001A9B6C /* Localizacao.swift */; };
 		3E07D36E260A4F9B001A9B6C /* MapaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07D36D260A4F9B001A9B6C /* MapaViewController.swift */; };
+		3E07D371260A58FD001A9B6C /* CalculaMediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07D370260A58FD001A9B6C /* CalculaMediaAPI.swift */; };
+		3E07D373260A6169001A9B6C /* Notificacoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07D372260A6169001A9B6C /* Notificacoes.swift */; };
 		A281001A1FD5C2F700E1BDF1 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28100191FD5C2F700E1BDF1 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		3E07D367260A2CFC001A9B6C /* Mensagem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mensagem.swift; sourceTree = "<group>"; };
 		3E07D369260A494F001A9B6C /* Localizacao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizacao.swift; sourceTree = "<group>"; };
 		3E07D36D260A4F9B001A9B6C /* MapaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapaViewController.swift; sourceTree = "<group>"; };
+		3E07D370260A58FD001A9B6C /* CalculaMediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculaMediaAPI.swift; sourceTree = "<group>"; };
+		3E07D372260A6169001A9B6C /* Notificacoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notificacoes.swift; sourceTree = "<group>"; };
 		A28100191FD5C2F700E1BDF1 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +91,7 @@
 		03AA17621FC8433E003CB2B8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3E07D36F260A58CB001A9B6C /* Model */,
 				03AA17641FC8433E003CB2B8 /* View */,
 				03AA17631FC8433E003CB2B8 /* Controller */,
 			);
@@ -141,6 +146,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		3E07D36F260A58CB001A9B6C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E07D370260A58FD001A9B6C /* CalculaMediaAPI.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A28100181FD5C2E300E1BDF1 /* Componentes */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +161,7 @@
 				3E07D365260A249F001A9B6C /* MenuOpcoesAlunos.swift */,
 				3E07D367260A2CFC001A9B6C /* Mensagem.swift */,
 				3E07D369260A494F001A9B6C /* Localizacao.swift */,
+				3E07D372260A6169001A9B6C /* Notificacoes.swift */,
 			);
 			path = Componentes;
 			sourceTree = "<group>";
@@ -228,9 +242,11 @@
 				03AA17661FC84353003CB2B8 /* HomeTableViewController.swift in Sources */,
 				03AA17561FC84154003CB2B8 /* Agenda.xcdatamodeld in Sources */,
 				A281001A1FD5C2F700E1BDF1 /* ImagePicker.swift in Sources */,
+				3E07D371260A58FD001A9B6C /* CalculaMediaAPI.swift in Sources */,
 				03AA17681FC843B1003CB2B8 /* HomeTableViewCell.swift in Sources */,
 				3E07D366260A249F001A9B6C /* MenuOpcoesAlunos.swift in Sources */,
 				3E07D368260A2CFC001A9B6C /* Mensagem.swift in Sources */,
+				3E07D373260A6169001A9B6C /* Notificacoes.swift in Sources */,
 				3E07D36E260A4F9B001A9B6C /* MapaViewController.swift in Sources */,
 				03AA174E1FC84154003CB2B8 /* AppDelegate.swift in Sources */,
 				3E07D36A260A494F001A9B6C /* Localizacao.swift in Sources */,
