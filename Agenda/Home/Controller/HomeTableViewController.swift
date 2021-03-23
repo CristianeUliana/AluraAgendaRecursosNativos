@@ -21,6 +21,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
     let searchController = UISearchController(searchResultsController: nil)
     var gerenciadorDeResultados:NSFetchedResultsController<Aluno>?
     var alunoViewController:AlunoViewController?
+    var mensagem = Mensagem()
+    
     
     // MARK: - View Lifecycle
 
@@ -60,6 +62,23 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
             print(error.localizedDescription)
         }
     }
+    
+    @objc func abrirActionSheet(_ longPress:UILongPressGestureRecognizer) {
+        if longPress.state == .began {
+            guard let alunoSelecionado = gerenciadorDeResultados?.fetchedObjects?[(longPress.view?.tag)!] else {return}
+            let menu = MenuOpcoesAlunos().configuraMenuDeOpcoesDoAluno { (opcao) in
+                switch opcao {
+                case .sms:
+                    if let componenteMessagem = self.mensagem.configuraSMS(alunoSelecionado) {
+                        componenteMessagem.messageComposeDelegate = self.mensagem
+                        self.present(componenteMessagem, animated: true, completion: nil)
+                    }
+                }
+            }
+            self.present(menu, animated: true, completion: nil)
+        }
+    }
+    
 
     // MARK: - Table view data source
 
@@ -71,9 +90,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celula = tableView.dequeueReusableCell(withIdentifier: "celula-aluno", for: indexPath) as! HomeTableViewCell
         
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(abrirActionSheet(_:)))
+        
         guard let aluno = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else {return celula}
         
         celula.configuraCelula(aluno)
+        celula.addGestureRecognizer(longPress)
         
         return celula
     }
