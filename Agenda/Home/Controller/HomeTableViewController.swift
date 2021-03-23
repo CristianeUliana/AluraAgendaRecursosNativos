@@ -65,7 +65,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
     
     @objc func abrirActionSheet(_ longPress:UILongPressGestureRecognizer) {
         if longPress.state == .began {
-            guard let alunoSelecionado = gerenciadorDeResultados?.fetchedObjects?[(longPress.view?.tag)!] else {return}
+            guard let alunoSelecionado = gerenciadorDeResultados?.fetchedObjects?[((longPress.view?.tag)!)] else {return}
             let menu = MenuOpcoesAlunos().configuraMenuDeOpcoesDoAluno { (opcao) in
                 switch opcao {
                 case .sms:
@@ -94,6 +94,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
                 case .mapa:
                     let mapa = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapa") as! MapaViewController
                     mapa.aluno = alunoSelecionado
+                    print(alunoSelecionado.nome)
                     self.navigationController?.pushViewController(mapa, animated: true)
                     break
                 }
@@ -112,6 +113,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celula = tableView.dequeueReusableCell(withIdentifier: "celula-aluno", for: indexPath) as! HomeTableViewCell
+        
+        celula.tag = indexPath.row
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(abrirActionSheet(_:)))
         
