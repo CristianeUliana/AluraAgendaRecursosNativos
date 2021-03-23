@@ -12,6 +12,7 @@ enum MenuActionSheetAluno {
     case sms
     case ligacao
     case waze
+    case mapa
 }
 
 
@@ -32,11 +33,16 @@ class MenuOpcoesAlunos: NSObject {
             completion(.waze)
         }
         
+        let mapa = UIAlertAction(title: "localizar no mapa", style: .default) { (acao) in
+            completion(.mapa)
+        }
+        
         let cancelar = UIAlertAction(title: "cancelar", style: .cancel, handler: nil)
         
         menu.addAction(sms)
         menu.addAction(ligacao)
         menu.addAction(waze)
+        menu.addAction(mapa)
         menu.addAction(cancelar)
         
         return menu
