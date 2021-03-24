@@ -13,7 +13,7 @@ class CalculaMediaAPI: NSObject {
         
         func calculaMediaGeralDosAlunos(alunos:Array<Aluno>, sucesso:@escaping(_ dicionarioDeMedias:Dictionary<String, Any>) -> Void, falha:@escaping(_ error:Error) -> Void) {
             
-            guard let url = URL(string: "https://www.caelum.com.br/mobile") else { return }
+            guard let url = URL(string: "https://673bf8e5-4661-47b9-bce3-179d2b2a57c7.mock.pstmn.io/media") else { return }
             var listaDeAlunos:Array<Dictionary<String, Any>> = []
             var json:Dictionary<String, Any> = [:]
             
