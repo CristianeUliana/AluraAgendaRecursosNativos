@@ -47,10 +47,15 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
         self.navigationItem.searchController = searchController
     }
     
-    func recuperaAluno() {
+    func recuperaAluno(filtro:String = "") {
         let pesquisaAluno:NSFetchRequest<Aluno> = Aluno.fetchRequest()
         let ordenaPorNome = NSSortDescriptor(key: "nome", ascending: true)
         pesquisaAluno.sortDescriptors = [ordenaPorNome]
+        
+        if verificaFiltro(filtro) {
+             pesquisaAluno.predicate = filtraAluno(filtro)
+        }
+       
         
         gerenciadorDeResultados = NSFetchedResultsController(fetchRequest: pesquisaAluno, managedObjectContext: contexto, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -62,6 +67,20 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
             print(error.localizedDescription)
         }
     }
+    
+    
+    func filtraAluno(_ filtro:String) -> NSPredicate {
+        return NSPredicate(format: "nome CONTAINS %@", filtro)
+    }
+    
+    func verificaFiltro(_ filtro:String) -> Bool {
+        if filtro.isEmpty {
+            return false
+        }
+        return true
+    }
+    
+    
     
     @objc func abrirActionSheet(_ longPress:UILongPressGestureRecognizer) {
         if longPress.state == .began {
@@ -94,7 +113,6 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
                 case .mapa:
                     let mapa = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapa") as! MapaViewController
                     mapa.aluno = alunoSelecionado
-                    print(alunoSelecionado.nome)
                     self.navigationController?.pushViewController(mapa, animated: true)
                     break
                 }
@@ -134,14 +152,21 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let alunoSelecionado = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else {return}
-            contexto.delete(alunoSelecionado)
+            AutenticacaoLocal().autorizaUsuario(completion: { (autenticado) in
+                if autenticado {
+                    DispatchQueue.main.async {
+                        guard let alunoSelecionado = self.gerenciadorDeResultados?.fetchedObjects![indexPath.row] else {return}
+                        self.contexto.delete(alunoSelecionado)
+                        
+                        do {
+                            try self.contexto.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            })
             
-            do {
-                try contexto.save()
-            } catch {
-                print(error.localizedDescription)
-            }
             
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -177,5 +202,22 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
             print(error.localizedDescription)
         }
     }
+    
+    
+    
+    // MARK: - SearchBarDelegate
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let nomeDoAluno = searchBar.text else {return}
+        recuperaAluno(filtro: nomeDoAluno)
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        recuperaAluno()
+        tableView.reloadData()
+    }
+    
+    
     
 }
